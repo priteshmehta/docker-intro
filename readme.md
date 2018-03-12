@@ -69,7 +69,7 @@ ________________________
 
 ### The Docker architecture
 
-![Docker architecture](https://docs.docker.com/engine/article-img/architecture.svg)
+![Docker architecture](https://docs.docker.com/engine/images/architecture.svg)
 ###### See more at [Understanding docker](https://docs.docker.com/engine/understanding-docker/)
 
 ---
@@ -161,13 +161,13 @@ docker run -i -t -d ubuntu:15.04 /bin/bash
 
 ### The docker image
 
-![ubuntu:15.04 image](https://docs.docker.com/engine/userguide/storagedriver/images/image-layers.jpg "A read-only layer that is the base of your container. It can have a parent image to abstract away the more basic filesystem snapshot. Each Docker image references a list of read-only layers that represent filesystem differences. Layers are stacked on top of each other to form a base for a container’s root filesystem.")
+![ubuntu:15.04 image](https://docs.docker.com/storage/storagedriver/images/container-layers.jpg) "A read-only layer that is the base of your container. It can have a parent image to abstract away the more basic filesystem snapshot. Each Docker image references a list of read-only layers that represent filesystem differences. Layers are stacked on top of each other to form a base for a container’s root filesystem.")
 
 ---
 
 ### The docker container
 
-![container using ubuntu:15.04 image](https://docs.docker.com/engine/userguide/storagedriver/images/container-layers.jpg "A runnable instance of the image, basically it is a process isolated by docker that runs on top of the filesystem that an image provides. For each containers there is a new, thin, writable layer - container layer - on top of the underlying stack (image).")
+![container using ubuntu:15.04 image](https://docs.docker.com/storage/storagedriver/images/sharing-layers.jpg) "A runnable instance of the image, basically it is a process isolated by docker that runs on top of the filesystem that an image provides. For each containers there is a new, thin, writable layer - container layer - on top of the underlying stack (image).")
 
 ---
 
@@ -207,20 +207,6 @@ docker inspect -f "{{ .State.StartedAt }}" [CONTAINER]
 docker rm [CONTAINER]
 
 ```
-
----
-
-### Docker examples
-
-- SSH into a container
-- Build an image
-- Docker [Volume](https://docs.docker.com/engine/userguide/containers/dockervolumes/)
-- [Linked](https://docs.docker.com/engine/userguide/networking/default_network/dockerlinks/) containers
-- Using [docker-compose](https://docs.docker.com/compose/)
-- Scale containers with docker-compose
-- Share an image (share this presentation)
-- Package an app with its environment
-- Screen and sound within containers (x-forward)
 
 ---
 
@@ -393,21 +379,6 @@ docker load < myapache_image.tar
 ---
 
 
-### Docker tips
-
-There are known best practices (see a list at [examples/tips](https://github.com/theodorosploumis/docker-presentation/tree/gh-pages/examples/tips))
-
-- Optimize containers (check [fromlatest.io](https://www.fromlatest.io/) and [imagelayers.io](https://imagelayers.io))
-- Create your own tiny base
-- Containers are not Virtual Machines
-- Full stack Images VS 1 process per Container
-- Create your private registry
-- Create shortcut commands
-- Use docker-compose.yml templates (see why at [lorry.io](https://lorry.io/))
-- Be aware of the hub.docker.com docker agent version
-
----
-
 ### The Docker war
 
 | Type | Software |
@@ -415,7 +386,6 @@ There are known best practices (see a list at [examples/tips](https://github.com
 | Clustering/orchestration | [Swarm](https://docs.docker.com/swarm/), [Kubernetes](http://kubernetes.io/), [Marathon](https://mesosphere.github.io/marathon/), [MaestroNG](https://github.com/signalfx/maestro-ng), [decking](http://decking.io/), [shipyard](http://shipyard-project.com/) |
 | Docker registries | [Portus](http://port.us.org/), [Docker Distribution](https://github.com/docker/distribution), [hub.docker.com](http://hub.docker.com), [quay.io](https://quay.io), [Google container registry](https://cloud.google.com/tools/container-registry/), [Artifactory](https://www.jfrog.com/artifactory/), [projectatomic.io](http://www.projectatomic.io/) |
 | PaaS with Docker | [Rancher](http://rancher.com/), [Tsuru](https://tsuru.io/), [dokku](https://github.com/dokku/dokku), [flynn](https://flynn.io/),  [Octohost](http://octohost.io/), [DEIS](http://deis.io/) |
-| OS made of Containers | [RancherOS](http://rancher.com/rancher-os/) |
 
 ---
 
@@ -428,26 +398,12 @@ There are known best practices (see a list at [examples/tips](https://github.com
 - [Solaris Zones](http://oracle.com/solaris)
 - [drawbridge](http://research.microsoft.com/en-us/projects/drawbridge/)
 
----
-
-### Instead of Resources
-
- - [Awesome Docker](https://github.com/veggiemonk/awesome-docker) (list of Docker resources & projects)
- - [Docker cheat sheet](https://github.com/wsargent/docker-cheat-sheet)
- - [Docker in Practice](https://www.manning.com/books/docker-in-practice), [The Docker Book](http://www.dockerbook.com/) (books)
- - [Docker aliases/shortcuts](https://github.com/theodorosploumis/docker-presentation/tree/gh-pages/examples/shortcuts/docker-aliases.sh)
- - Docker [case studies](https://www.docker.com/customers)
 
 ---
 
 ### Questions?
 
 ![Pythons over Docker!](https://raw.githubusercontent.com/theodorosploumis/docker-presentation/gh-pages/img/docker_logo.png)
-
-[Review this presentation](https://goo.gl/lkau9t)
+http://make-anything.wikia.com/wiki/File:3d_question_guy.png
 
 ---
-
-### Bonus!
-
-> Get the [SKGTech.io docker image](https://github.com/skgtech/skgtech.io-docker)
