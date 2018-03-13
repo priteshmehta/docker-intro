@@ -68,7 +68,6 @@ ________________________
 ### The Docker architecture
 
 ![Docker architecture](http://19yw4b240vb03ws8qm25h366-wpengine.netdna-ssl.com/wp-content/uploads/Docker-API-infographic-container-devops-nordic-apis.png)
-###### See more at [Understanding docker](https://docs.docker.com/engine/understanding-docker/)
 
 ---
 
@@ -164,24 +163,20 @@ A (hosted) service containing repositories of images which responds to the Regis
 - A runnable instance of the image, basically it is a process isolated by docker that runs on top of the filesystem that an image provides. 
 - For each containers there is a new, thin, writable layer - container layer - on top of the underlying stack (image).
 
----
-
-
 
 ---
 
 
 ### Let's get started
 
-![gif][https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif]
-
+![gif](https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif)
 
 ---
 
 
 ### Goal: Deploy microservice using Docker
 
-1. Pull the docker image from docker registry 
+ ## Step1: Pull the docker image from docker registry 
 
 ```
 docker pull nginx
@@ -193,8 +188,9 @@ docker pull myregistry.local:5000/testing/test-image
 docker pull ubuntu@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2
 
 ```
+---
 
-2. Check if docker image is locally available
+## Step2: Check if docker image is locally available
 
 ```
 docker images
@@ -202,14 +198,18 @@ docker images -a
 
 ```
 
-3. Check total conainers running at this moment
+---
+
+## Step3: Check total conainers running at this moment
 
 ```
 docker ps
 docker ps -a 
 ```
 
-4. Run the container
+---
+
+## Step4: Run the container
 
 ```
 docker run -d -p 9090:80 --name webservice1 nginx
@@ -223,7 +223,7 @@ docker run -d --name ubuntu ubuntu:16.04 tail -f /dev/null
 
 ---
 
-### Copy content into the conainer
+## Step5: Copy content into the conainer
 
 ```
 
@@ -235,7 +235,6 @@ Example: docker cp ./index1.html webservice1:/usr/share/nginx/html/
 Example: 
 
 ```
-
 
 ---
 
