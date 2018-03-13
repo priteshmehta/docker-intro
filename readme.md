@@ -211,7 +211,7 @@ docker ps -a
 
 ---
 
-#### Step4: Run the container
+#### Run the container
 
 ```
 docker run -d -p 9090:80 --name webservice1 nginx
@@ -251,11 +251,10 @@ For Example:
 
 docker logs --follow webservice1
 
-```
 
 ---
 
-#### Remove the Containers & Images
+#### Remove Containers & Images
 
 ```
 
@@ -309,7 +308,11 @@ docker build .
 docker build -t webservice2:1 .
 docker build -f [DOCKERFILE]
 
-#### Push build to docker registry
+```
+
+##### Push build to docker registry
+
+```
 docker push webservice2:1
 
 ```
@@ -318,8 +321,8 @@ docker push webservice2:1
 
 ### Questions?
 
-![Pythons over Docker!](https://raw.githubusercontent.com/theodorosploumis/docker-presentation/gh-pages/img/docker_logo.png)
-http://make-anything.wikia.com/wiki/File:3d_question_guy.png
+![questions!](http://make-anything.wikia.com/wiki/File:3d_question_guy.png)
+
 
 ---
 
