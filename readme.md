@@ -224,14 +224,16 @@ docker run -d --name ubuntu ubuntu:16.04 tail -f /dev/null
 
 #### Copy content into the conainer
 
+
+##### Copy file(s)/folder
+
 ```
-
-1. Copy file(s)/folder
-
 docker cp sample_html/index1.html webservice1:/usr/share/nginx/html/
 
-2. Mount the local folder
+```
+##### Mount the local folder
 
+```
 docker run -d -p 5000:80 -v ~/nginxlogs:/var/log/nginx --name webservice2 nginx
 
 ```
@@ -241,16 +243,11 @@ docker run -d -p 5000:80 -v ~/nginxlogs:/var/log/nginx --name webservice2 nginx
 #### Access Docker Container 
 
 ```
-
-docker exec -it [CONTAINER] /bin/bash
-
-docker exec [CONTAINER] <cmd>
-For Example: 
-   docker exec webservice1 service nginx stop
-   docker exec webservice1 tail -f 
-
+docker exec -it webservice1 bash
+docker exec webservice1 service nginx stop
 docker logs --follow webservice1
 
+```
 
 ---
 
@@ -294,8 +291,8 @@ docker kill
 
 #### Sample Dockerfile
 
-Dockerfile For above example:  [Click Here](https://github.com/priteshmehta/docker-intro/blob/master/Dockerfile)
-Dockerfile with inline comments: [Click Here](https://github.com/priteshmehta/docker-intro/blob/master/examples/dockerfile/Dockerfile)
+- Dockerfile For above example:  [Click Here](https://github.com/priteshmehta/docker-intro/blob/master/Dockerfile)
+- Dockerfile with inline comments: [Click Here](https://github.com/priteshmehta/docker-intro/blob/master/examples/dockerfile/Dockerfile)
 
 
 ---
@@ -321,7 +318,7 @@ docker push webservice2:1
 
 ### Questions?
 
-![questions!](http://make-anything.wikia.com/wiki/File:3d_question_guy.png)
+![questions!](https://raw.githubusercontent.com/priteshmehta/docker-intro/master/img/3d_question_guy.png)
 
 
 ---
