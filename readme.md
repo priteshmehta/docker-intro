@@ -176,7 +176,7 @@ A (hosted) service containing repositories of images which responds to the Regis
 
 ### Goal: Deploy microservice using Docker
 
-#### Step1: Pull the docker image from docker registry 
+#### Pull the docker image from docker registry 
 
 ```
 docker pull nginx
@@ -188,9 +188,10 @@ docker pull myregistry.local:5000/testing/test-image
 docker pull ubuntu@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2
 
 ```
+
 ---
 
-#### Step2: Check if docker image is locally available
+#### To list locally available docker images
 
 ```
 docker images
@@ -200,7 +201,7 @@ docker images -a
 
 ---
 
-#### Step3: Check total conainers running at this moment
+#### To List running conainers
 
 ```
 docker ps
@@ -214,9 +215,6 @@ docker ps -a
 
 ```
 docker run -d -p 9090:80 --name webservice1 nginx
-
-// Other useful options
-docker run -d -p 9090:80  -v nginx-vol:/usr/share/nginx/html --name webservice2 nginx
 docker run -d --name ubuntu ubuntu:16.04 tail -f /dev/null
 
 ```
@@ -224,22 +222,23 @@ docker run -d --name ubuntu ubuntu:16.04 tail -f /dev/null
 
 ---
 
-#### Step5: Copy content into the conainer
+#### Copy content into the conainer
 
 ```
 
-docker cp [FILEA|DIR] [CONTAINER]:/usr/share/nginx/html/
-Example: docker cp ./index1.html webservice1:/usr/share/nginx/html/
+1. Copy file(s)/folder
+
+docker cp sample_html/index1.html webservice1:/usr/share/nginx/html/
 
 2. Mount the local folder
 
-Example: 
+docker run -d -p 5000:80 -v ~/nginxlogs:/var/log/nginx --name webservice2 nginx
 
 ```
 
 ---
 
-### Access Docker Container 
+#### Access Docker Container 
 
 ```
 
@@ -256,7 +255,7 @@ docker logs --follow webservice1
 
 ---
 
-### Remove the Containers & Images
+#### Remove the Containers & Images
 
 ```
 
@@ -264,12 +263,13 @@ docker stop/start/restart [CONTAINER]
 docker rm [CONTAINER]
 docker images purge
 docker images [IMAGE]
+docker volume rm  [VOLUMNE_NAME]
 
 ```
 
 ---
 
-### Other Useful Commands
+#### Other Useful Commands
 
 ```
 
@@ -277,6 +277,7 @@ docker top [CONTAINER]
 docker port [CONTAINER]
 docker inspect [CONTAINER]
 docker network ls
+docker volume ls
 docker stats
 docker help 
 docker info
@@ -292,27 +293,28 @@ docker kill
 
 > A Dockerfile is a text document that contains all the commands a user could call on the command line to create an image.
 
- - [Dockerfile with inline comments](https://github.com/theodorosploumis/docker-presentation/blob/gh-pages/examples/dockerfile/Dockerfile) just for education
- - [Dockerfile reference](https://docs.docker.com/engine/reference/builder/) on docker docs
- - Official Dockerfiles ([rails](https://github.com/docker-library/rails/blob/master/Dockerfile), [nodejs](https://github.com/ReadyTalk/nodejs-docker/blob/master/base/Dockerfile), [django](https://github.com/docker-library/django/blob/master/3.4/Dockerfile), [Drupal](https://github.com/docker-library/drupal/blob/master/8.1/fpm/Dockerfile))
+#### Sample Dockerfile
+
+Dockerfile For above example:  [Click Here](https://github.com/priteshmehta/docker-intro/blob/master/Dockerfile)
+Dockerfile with inline comments: [Click Here](https://github.com/priteshmehta/docker-intro/blob/master/examples/dockerfile/Dockerfile)
+
 
 ---
 
-### Sample Dockerfile
 
-```
-[file content]
-
-```
-
-### Build image using Dockerfile
+### Build using Dockerfile
 
 ```
 docker build .
+docker build -t webservice2:1 .
 docker build -f [DOCKERFILE]
+
+#### Push build to docker registry
+docker push webservice2:1
 
 ```
 
+---
 
 ### Questions?
 
@@ -328,7 +330,7 @@ http://make-anything.wikia.com/wiki/File:3d_question_guy.png
 
 ---
 
-### Highlevel Architecure
+### Highlevel Architecture
 
 ![Kubernetes basic diragram](https://storage.googleapis.com/cdn.thenewstack.io/media/2016/11/Chart_04_Kubernetes-Node.png)
 
