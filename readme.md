@@ -225,13 +225,13 @@ docker run -d --name ubuntu ubuntu:16.04 tail -f /dev/null
 #### Copy content into the conainer
 
 
-##### Copy file(s)/folder
+###### Copy file(s)/folder
 
 ```
 docker cp sample_html/index1.html webservice1:/usr/share/nginx/html/
 
 ```
-##### Mount the local folder
+###### Mount the local folder
 
 ```
 docker run -d -p 5000:80 -v ~/nginxlogs:/var/log/nginx --name webservice2 nginx
@@ -330,15 +330,136 @@ docker push webservice2:1
 
 ---
 
-### Highlevel Architecture
+### What is Kubernetes?
 
-![Kubernetes basic diragram](https://storage.googleapis.com/cdn.thenewstack.io/media/2016/11/Chart_04_Kubernetes-Node.png)
+- Kubernetes is a "Container Orchestrator" or "Cluster Manager".
+- Basic monitoring, logging, health checking
+- Enables containers to find each other.
+
+
+### Kube Cluster
+
+![Kubernetes cluster](https://github.com/priteshmehta/docker-intro/blob/master/img/kube_arch.png?raw=true)
 
 
 ### Important Terminology
 
 - Pod
-- service
+- ReplicaSet (old ReplicationController)
+- Service
+- Deployment  
+- Labels
+- ingress (L7 Load balancer)
 
 ---
 
+### Basic Usage
+
+- Deploy a containerized application on a cluster
+- Scale the deployment
+- Update the containerized application with a new software version
+- Debug the containerized application
+
+---
+
+### Create Kube Cluster
+
+![Kube Cluster](https://d33wubrfki0l68.cloudfront.net/99d9808dcbf2880a996ed50d308a186b5900cec9/40b94/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg)
+
+```
+minikube version
+minikube start
+minikube addons list
+
+kubectl version
+kubectl cluster-info
+kubectl get nodes
+
+```
+
+---
+
+### Deploy App in Kube Cluster
+
+![Deploy app](https://d33wubrfki0l68.cloudfront.net/152c845f25df8e69dd24dd7b0836a289747e258a/4a1d2/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg)
+
+
+kubectl run kube-demo-service --image=nginx:latest --port=9091
+kubectl get pods
+kubectl get rs
+kubectl get deployments
+kubectl exec -it [POD] bash
+kubectl logs [POD]
+
+---
+
+### Create Service
+
+[diagram](https://d33wubrfki0l68.cloudfront.net/cc38b0f3c0fd94e66495e3a4198f2096cdecd3d5/ace10/docs/tutorials/kubernetes-basics/public/images/module_04_services.svg)
+
+```
+
+kubectl expose deployment/kube-demo-service --type="NodePort" --port 9091
+kubectl get services
+kubectl describe services/kube-demo-service
+kubectl describe deployment
+
+````
+---
+
+### Expose to Public (Load Balancer)
+
+
+```
+
+minikube addons enable ingress
+kubectl get ing
+
+```
+
+---
+
+### Scalling App
+
+```
+<TBD>
+
+```
+
+---
+
+### Rolling Update
+
+```
+
+kubectl logs <POD-NAME>
+minikube addons enable ingress
+
+````
+
+---
+
+### Cleanup
+
+```
+
+kubectl delete service kube-demo-service
+kubectl delete deployment kube-demo-service
+minikube stop
+
+```
+
+---
+
+### Misc commands
+
+```
+kubectl proxy
+kubectl exec -ti $POD_NAME curl localhost:8080
+kubectl exec -ti kube-demo-service-7bc677bf86-6zkrn curl localhost:9091
+curl http://localhost:8001/version
+curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME
+kubectl edit -oyaml deployment kube-demo-service
+eval $(minikube docker-env)
+
+```
