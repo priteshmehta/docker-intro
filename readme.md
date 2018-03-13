@@ -190,7 +190,7 @@ docker pull ubuntu@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f878
 ```
 ---
 
-### Step2: Check if docker image is locally available
+#### Step2: Check if docker image is locally available
 
 ```
 docker images
@@ -200,16 +200,17 @@ docker images -a
 
 ---
 
-### Step3: Check total conainers running at this moment
+#### Step3: Check total conainers running at this moment
 
 ```
 docker ps
 docker ps -a 
+
 ```
 
 ---
 
-### Step4: Run the container
+#### Step4: Run the container
 
 ```
 docker run -d -p 9090:80 --name webservice1 nginx
@@ -223,7 +224,7 @@ docker run -d --name ubuntu ubuntu:16.04 tail -f /dev/null
 
 ---
 
-### Step5: Copy content into the conainer
+#### Step5: Copy content into the conainer
 
 ```
 
