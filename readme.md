@@ -1,20 +1,20 @@
 ![Docker logo](https://raw.githubusercontent.com/theodorosploumis/docker-presentation/gh-pages/img/docker_logo.png)
 
-## Docker - Introducation
+## Docker - Introduction
 
 ________________________
 
 
-###### Under [Attribution 4.0 International](http://creativecommons.org/licenses/by/4.0/) license.
+###### By Pritesh
 
 ---
 
 
 ### What is Docker?
 
-> Docker is an open platform for developing, shipping, and running applications.
+- Docker is an open platform for developing, shipping, and running applications.
 
-> Docker allows you to package an application with all of its dependencies into a standardized unit for software development.
+- Docker allows you to package an application with all of its dependencies into a standardized unit for software development.
 
 ---
 
@@ -49,8 +49,6 @@ ________________________
  - Multi-tier applications
  - PaaS, SaaS
 
-###### See the [survey results for 2016](https://www.docker.com/survey-2016)
-
 ---
 
 ### Technology behind Docker
@@ -69,7 +67,7 @@ ________________________
 
 ### The Docker architecture
 
-![Docker architecture](https://docs.docker.com/engine/images/architecture.svg)
+![Docker architecture](http://19yw4b240vb03ws8qm25h366-wpengine.netdna-ssl.com/wp-content/uploads/Docker-API-infographic-container-devops-nordic-apis.png)
 ###### See more at [Understanding docker](https://docs.docker.com/engine/understanding-docker/)
 
 ---
@@ -83,6 +81,14 @@ ________________________
  - compose
  - swarm
  - registry
+
+---
+
+### Docker Component Architecture
+
+![Docker component architecture](https://docs.docker.com/engine/images/engine-components-flow.png)
+
+
 
 ---
 
@@ -143,220 +149,37 @@ A (hosted) service containing repositories of images which responds to the Regis
 
 ---
 
-### Steps of a Docker workflow
-
-```
-docker run -i -t -d ubuntu:15.04 /bin/bash
-```
-
- - Pulls the ubuntu:15.04 [image](https://docs.docker.com/engine/userguide/containers/dockerimages/ "A read-only layer that is the base of your container. It can have a parent image to abstract away the more basic filesystem snapshot.") from the [registry](https://docs.docker.com/registry/ "The central place where all publicly published images live. You can search it, upload your images there and when you pull a docker image, it comes the repository/hub.")
- - Creates a new [container](https://docs.docker.com/engine/userguide/storagedriver/imagesandcontainers/ "A runnable instance of the image, basically it is a process isolated by docker that runs on top of the filesystem that an image provides.")
- - Allocates a filesystem and mounts a read-write [layer](https://docs.docker.com/engine/reference/glossary/#filesystem "A set of read-only files to provision the system. Think of a layer as a read only snapshot of the filesystem.")
- - Allocates a [network/bridge interface](https://www.wikiwand.com/en/Bridging_%28networking%29 "")
- - Sets up an [IP address](https://www.wikiwand.com/en/IP_address "An Internet Protocol address (IP address) is a numerical label assigned to each device (e.g., computer, printer) participating in a computer network that uses the Internet Protocol for communication.")
- - Executes a process that you specify (``` /bin/bash ```)
- - Captures and provides application output
-
----
-
 ### The docker image
 
-![ubuntu:15.04 image](https://docs.docker.com/storage/storagedriver/images/container-layers.jpg) "A read-only layer that is the base of your container. It can have a parent image to abstract away the more basic filesystem snapshot. Each Docker image references a list of read-only layers that represent filesystem differences. Layers are stacked on top of each other to form a base for a container’s root filesystem.")
+![ubuntu:15.04 image](https://docs.docker.com/storage/storagedriver/images/container-layers.jpg) 
+
+- Each Docker image references a list of read-only layers that represent filesystem differences.
+- Layers are stacked on top of each other to form a base for a container’s root filesystem.
 
 ---
 
 ### The docker container
 
-![container using ubuntu:15.04 image](https://docs.docker.com/storage/storagedriver/images/sharing-layers.jpg) "A runnable instance of the image, basically it is a process isolated by docker that runs on top of the filesystem that an image provides. For each containers there is a new, thin, writable layer - container layer - on top of the underlying stack (image).")
+![container using ubuntu:15.04 image](https://docs.docker.com/storage/storagedriver/images/sharing-layers.jpg) 
+- A runnable instance of the image, basically it is a process isolated by docker that runs on top of the filesystem that an image provides. 
+- For each containers there is a new, thin, writable layer - container layer - on top of the underlying stack (image).
 
 ---
 
-### The Dockerfile
-
-> A Dockerfile is a text document that contains all the commands a user could call on the command line to create an image.
-
- - [Dockerfile with inline comments](https://github.com/theodorosploumis/docker-presentation/blob/gh-pages/examples/dockerfile/Dockerfile) just for education
- - [Dockerfile reference](https://docs.docker.com/engine/reference/builder/) on docker docs
- - Official Dockerfiles ([rails](https://github.com/docker-library/rails/blob/master/Dockerfile), [nodejs](https://github.com/ReadyTalk/nodejs-docker/blob/master/base/Dockerfile), [django](https://github.com/docker-library/django/blob/master/3.4/Dockerfile), [Drupal](https://github.com/docker-library/drupal/blob/master/8.1/fpm/Dockerfile))
-
----
-
-### Common Docker Commands
-
-```
-// General info
-man docker // man docker-run
-docker help // docker help run
-docker info
-docker version
-docker network ls
-
-// Images
-docker images // docker [IMAGE_NAME]
-docker pull [IMAGE] // docker push [IMAGE]
-
-// Containers
-docker run
-docker ps // docker ps -a, docker ps -l
-docker stop/start/restart [CONTAINER]
-docker stats [CONTAINER]
-docker top [CONTAINER]
-docker port [CONTAINER]
-docker inspect [CONTAINER]
-docker inspect -f "{{ .State.StartedAt }}" [CONTAINER]
-docker rm [CONTAINER]
-
-```
-
----
-
-### Example: SSH into a container
-
-```
-docker pull ubuntu
-docker run -it --name ubuntu_example ubuntu /bin/bash
-```
-
----
-
-### Example: Build an Image
-
-Let's build a [jenkins image](https://github.com/komljen/dockerfile-examples/blob/master/jenkins/Dockerfile)
-
-```
-cd ~/Docker-presentation
-git clone git@github.com:komljen/dockerfile-examples.git.git
-cd dockerfile-examples/jenkins
-docker build -t jenkins-local .
-
-// Test it
-docker run -d -p 8099:8080 --name jenkins_example jenkins-local
-// Open http://localhost:8099
-```
-
----
-
-### Example: Docker volume
-
-Let's use [Apache server](https://bitbucket.org/EdBoraas/apache-docker/src/)
-
-```
-cd ~/Docker-presentation
-mkdir apache-example
-cd apache-example
-
-docker pull eboraas/apache
-docker run --name apache_volume_example \
-           -p 8180:80 -p 443:443 \
-           -v $(pwd):/var/www/ \
-           -d eboraas/apache
-
-// Locally create an index.html file
-mkdir html
-cd html
-echo "It works using mount." >> index.html
-
-// Open http://localhost:8180 to view the html file
-```
-
----
-
-### Example: Docker link containers
-
-Let's create a [Drupal app](https://hub.docker.com/_/drupal/) (apache, php, mysql, drupal)
-
-```
-cd ~/Docker-presentation
-mkdir drupal-link-example
-cd drupal-link-example
-
-docker pull drupal:8.0.6-apache
-docker pull mysql:5.5
-
-// Start a container for mysql
-docker run --name mysql_example \
-           -e MYSQL_ROOT_PASSWORD=root \
-           -e MYSQL_DATABASE=drupal \
-           -e MYSQL_USER=drupal \
-           -e MYSQL_PASSWORD=drupal \
-           -d mysql:5.5
-
-// Start a Drupal container and link it with mysql
-// Usage: --link [name or id]:alias
-docker run -d --name drupal_example \
-           -p 8280:80 \
-           --link mysql_example:mysql \
-           drupal:8.0.6-apache
-
-// Open http://localhost:8280 to continue with the installation
-// On the db host use: mysql
-
-// There is a proper linking
-docker inspect -f "{{ .HostConfig.Links }}" drupal_example
-```
-
----
-
-### Example: Using Docker Compose
-
-Let's create a Drupal app with [docker-compose.yml](https://github.com/theodorosploumis/docker-presentation/blob/gh-pages/examples/docker-compose/docker-compose.yml)
-
-```
-cd ~/Docker-presentation
-git clone git@github.com:theodorosploumis/docker-presentation.git
-cd docker-presentation/examples/docker-compose
-
-// Run docker-compose using the docker-compose.yml
-cat docker-compose.yml
-docker-compose up -d
-```
-
----
-
-### Example: Share a public Image
-
-```
-cd ~/Docker-presentation
-git clone git@github.com:theodorosploumis/docker-presentation.git
-cd docker-presentation
-
-docker pull nimmis/alpine-apache
-docker build -t tplcom/docker-presentation .
-
-// Test it
-docker run -itd --name docker_presentation \
-           -p 8480:80 \
-           tplcom/docker-presentation
-
-// Open http://localhost:8480, you should see this presentation
-
-// Push it on the hub.docker.com
-docker push tplcom/docker-presentation
-```
-
----
-
-
-### The Docker war
-
-| Type | Software |
-|:----:|----------|
-| Clustering/orchestration | [Swarm](https://docs.docker.com/swarm/), [Kubernetes](http://kubernetes.io/), [Marathon](https://mesosphere.github.io/marathon/), [MaestroNG](https://github.com/signalfx/maestro-ng), [decking](http://decking.io/), [shipyard](http://shipyard-project.com/) |
-| Docker registries | [Portus](http://port.us.org/), [Docker Distribution](https://github.com/docker/distribution), [hub.docker.com](http://hub.docker.com), [quay.io](https://quay.io), [Google container registry](https://cloud.google.com/tools/container-registry/), [Artifactory](https://www.jfrog.com/artifactory/), [projectatomic.io](http://www.projectatomic.io/) |
-| PaaS with Docker | [Rancher](http://rancher.com/), [Tsuru](https://tsuru.io/), [dokku](https://github.com/dokku/dokku), [flynn](https://flynn.io/),  [Octohost](http://octohost.io/), [DEIS](http://deis.io/) |
-
-
----
-
-###Time to get your hand dirty....
-
-[Gify]
 
 
 ---
 
 
-### Deploy microservice using Docker
+### Let's get started
+
+![gif][https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif]
+
+
+---
+
+
+### Goal: Deploy microservice using Docker
 
 1. Pull the docker image from docker registry 
 
@@ -394,27 +217,29 @@ docker run -d -p 9090:80 --name webservice1 nginx
 // Other useful options
 docker run -d -p 9090:80  -v nginx-vol:/usr/share/nginx/html --name webservice2 nginx
 docker run -d --name ubuntu ubuntu:16.04 tail -f /dev/null
+
 ```
 
 
 ---
 
-### Copy files in to conainer
+### Copy content into the conainer
 
 ```
-1. Copy files
 
 docker cp [FILEA|DIR] [CONTAINER]:/usr/share/nginx/html/
-e.g. docker cp ./index1.html webservice1:/usr/share/nginx/html/
+Example: docker cp ./index1.html webservice1:/usr/share/nginx/html/
 
 2. Mount the local folder
 
+Example: 
+
 ```
 
 
 ---
 
-### Access container 
+### Access Docker Container 
 
 ```
 
@@ -431,7 +256,7 @@ docker logs --follow webservice1
 
 ---
 
-### Remove container/images
+### Remove the Containers & Images
 
 ```
 
@@ -444,19 +269,32 @@ docker images [IMAGE]
 
 ---
 
-### Miscellaneous useful commands
+### Other Useful Commands
 
 ```
 
 docker top [CONTAINER]
-docker kill 
+docker port [CONTAINER]
+docker inspect [CONTAINER]
+docker network ls
 docker stats
 docker help 
 docker info
 docker version
-docker network ls
+docker kill 
 
 ```
+
+---
+
+
+### The Dockerfile
+
+> A Dockerfile is a text document that contains all the commands a user could call on the command line to create an image.
+
+ - [Dockerfile with inline comments](https://github.com/theodorosploumis/docker-presentation/blob/gh-pages/examples/dockerfile/Dockerfile) just for education
+ - [Dockerfile reference](https://docs.docker.com/engine/reference/builder/) on docker docs
+ - Official Dockerfiles ([rails](https://github.com/docker-library/rails/blob/master/Dockerfile), [nodejs](https://github.com/ReadyTalk/nodejs-docker/blob/master/base/Dockerfile), [django](https://github.com/docker-library/django/blob/master/3.4/Dockerfile), [Drupal](https://github.com/docker-library/drupal/blob/master/8.1/fpm/Dockerfile))
 
 ---
 
@@ -467,3 +305,20 @@ docker network ls
 http://make-anything.wikia.com/wiki/File:3d_question_guy.png
 
 ---
+
+### Kubernetes
+
+
+![Kubernetes logo](https://avatars1.githubusercontent.com/u/13629408?s=400&v=4)
+
+---
+
+### Highlevel Architecure
+
+![Kubernetes basic diragram](https://storage.googleapis.com/cdn.thenewstack.io/media/2016/11/Chart_04_Kubernetes-Node.png)
+
+
+### Important Terminology
+
+---
+
