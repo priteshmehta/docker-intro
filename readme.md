@@ -10,7 +10,7 @@ ________________________
 ---
 
 
-### What is Docker (v1.11)
+### What is Docker?
 
 > Docker is an open platform for developing, shipping, and running applications.
 
@@ -336,48 +336,6 @@ docker push tplcom/docker-presentation
 
 ---
 
-### Example: Export/Save/Load etc
-
-```
-docker pull nimmis/alpine-apache
-docker run -d --name apache_example \
-           nimmis/alpine-apache
-
-// Create a file inside the container.
-// See https://github.com/nimmis/docker-alpine-apache for details.
-docker exec -ti apache_example \
-            /bin/sh -c 'mkdir /test && echo "This is it." >> /test/test.txt'
-
-// Test it. You should see message: "This is it."
-docker exec apache_example cat /test/test.txt
-
-// Commit the change.
-docker commit apache_export_example myapache:latest
-
-// Create a new container with the new image.
-docker run -d --name myapache_example myapache
-
-// You should see the new folder/file inside the myapache_example container.
-docker exec myapache_example cat /test/test.txt
-
-// Export the container as image
-cd ~/Docker-presentation
-docker export myapache_example > myapache_example.tar
-
-// Import a new image from the exported files
-cd ~/Docker-presentation
-docker import myapache_example.tar myapache:new
-
-// Save a new image as tar
-docker save -o ~/Docker-presentation/myapache_image.tar myapache:new
-
-// Load an image from tar file
-docker load < myapache_image.tar
-
-```
-
----
-
 
 ### The Docker war
 
@@ -387,19 +345,121 @@ docker load < myapache_image.tar
 | Docker registries | [Portus](http://port.us.org/), [Docker Distribution](https://github.com/docker/distribution), [hub.docker.com](http://hub.docker.com), [quay.io](https://quay.io), [Google container registry](https://cloud.google.com/tools/container-registry/), [Artifactory](https://www.jfrog.com/artifactory/), [projectatomic.io](http://www.projectatomic.io/) |
 | PaaS with Docker | [Rancher](http://rancher.com/), [Tsuru](https://tsuru.io/), [dokku](https://github.com/dokku/dokku), [flynn](https://flynn.io/),  [Octohost](http://octohost.io/), [DEIS](http://deis.io/) |
 
+
 ---
 
-### Docker Alternatives
+###Time to get your hand dirty....
 
-- [Rocket, rkt](https://github.com/coreos/rkt)
-- [Linux Containers, LXC](https://linuxcontainers.org/)
-- [Linux container hypervisor, LXD](http://www.ubuntu.com/cloud/lxd)
-- [BSD Jails](https://www.freebsd.org/doc/handbook/jails.html)
-- [Solaris Zones](http://oracle.com/solaris)
-- [drawbridge](http://research.microsoft.com/en-us/projects/drawbridge/)
+[Gify]
 
 
 ---
+
+
+### Deploy microservice using Docker
+
+1. Pull the docker image from docker registry 
+
+```
+docker pull nginx
+
+// Other options
+
+docker pull nginx:<Tag>
+docker pull myregistry.local:5000/testing/test-image
+docker pull ubuntu@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2
+
+```
+
+2. Check if docker image is locally available
+
+```
+docker images
+docker images -a
+
+```
+
+3. Check total conainers running at this moment
+
+```
+docker ps
+docker ps -a 
+```
+
+4. Run the container
+
+```
+docker run -d -p 9090:80 --name webservice1 nginx
+
+// Other useful options
+docker run -d -p 9090:80  -v nginx-vol:/usr/share/nginx/html --name webservice2 nginx
+docker run -d --name ubuntu ubuntu:16.04 tail -f /dev/null
+```
+
+
+---
+
+### Copy files in to conainer
+
+```
+1. Copy files
+
+docker cp [FILEA|DIR] [CONTAINER]:/usr/share/nginx/html/
+e.g. docker cp ./index1.html webservice1:/usr/share/nginx/html/
+
+2. Mount the local folder
+
+```
+
+
+---
+
+### Access container 
+
+```
+
+docker exec -it [CONTAINER] /bin/bash
+
+docker exec [CONTAINER] <cmd>
+For Example: 
+   docker exec webservice1 service nginx stop
+   docker exec webservice1 tail -f 
+
+docker logs --follow webservice1
+
+```
+
+---
+
+### Remove container/images
+
+```
+
+docker stop/start/restart [CONTAINER]
+docker rm [CONTAINER]
+docker images purge
+docker images [IMAGE]
+
+```
+
+---
+
+### Miscellaneous useful commands
+
+```
+
+docker top [CONTAINER]
+docker kill 
+docker stats
+docker help 
+docker info
+docker version
+docker network ls
+
+```
+
+---
+
 
 ### Questions?
 
