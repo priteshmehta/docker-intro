@@ -397,14 +397,13 @@ kubectl logs [POD]
 
 ### Create Service
 
-[diagram](https://d33wubrfki0l68.cloudfront.net/cc38b0f3c0fd94e66495e3a4198f2096cdecd3d5/ace10/docs/tutorials/kubernetes-basics/public/images/module_04_services.svg)
+![diagram](https://d33wubrfki0l68.cloudfront.net/cc38b0f3c0fd94e66495e3a4198f2096cdecd3d5/ace10/docs/tutorials/kubernetes-basics/public/images/module_04_services.svg)
 
 ```
 
 kubectl expose deployment/kube-demo-service --type="NodePort" --port=80
 kubectl get services
 kubectl describe services/kube-demo-service
-kubectl describe deployment
 
 ````
 
