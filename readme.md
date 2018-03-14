@@ -405,7 +405,7 @@ kubectl expose deployment/kube-demo-service --type="NodePort" --port=80
 kubectl get services
 kubectl describe services/kube-demo-service
 
-````
+```
 
 ---
 
@@ -416,6 +416,7 @@ kubectl describe services/kube-demo-service
 ```
 
 minikube addons enable ingress
+kubectl create -f [ResourceFile]
 kubectl get ing
 
 ```
@@ -425,7 +426,9 @@ kubectl get ing
 ### Scalling App
 
 ```
-<TBD>
+kubectl scale deployments/kube-demo-service --replicas=4
+kubectl get deployments
+kubectl get pods -o wide
 
 ```
 
@@ -433,10 +436,13 @@ kubectl get ing
 
 ### Rolling Update
 
-```
 
-kubectl logs <POD-NAME>
-minikube addons enable ingress
+![kube rolling update](https://github.com/priteshmehta/docker-intro/blob/master/img/kube_rolling_update.gif?raw=true)
+
+```
+kubectl describe pod [PODNAME]
+kubectl set image deployments/kube-demo-service kube-demo-service=kube-demo-service:v2
+kubectl describe services/kube-demo-service
 
 ````
 
@@ -446,9 +452,10 @@ minikube addons enable ingress
 
 ```
 
-kubectl delete service kube-demo-service
 kubectl delete deployment kube-demo-service
+kubectl delete service kube-demo-service
 minikube stop
+minikube delete
 
 ```
 
