@@ -160,6 +160,7 @@ A (hosted) service containing repositories of images which responds to the Regis
 ### The docker container
 
 ![container using ubuntu:15.04 image](https://docs.docker.com/storage/storagedriver/images/sharing-layers.jpg) 
+
 - A runnable instance of the image, basically it is a process isolated by docker that runs on top of the filesystem that an image provides. 
 - For each containers there is a new, thin, writable layer - container layer - on top of the underlying stack (image).
 
@@ -222,7 +223,7 @@ docker run -d --name ubuntu ubuntu:16.04 tail -f /dev/null
 
 ---
 
-#### Copy content into the conainer
+### Copy content into the conainer
 
 
 ###### Copy file(s)/folder
@@ -444,7 +445,7 @@ kubectl describe pod [PODNAME]
 kubectl set image deployments/kube-demo-service kube-demo-service=kube-demo-service:v2
 kubectl describe services/kube-demo-service
 
-````
+```
 
 ---
 
@@ -464,12 +465,18 @@ minikube delete
 ### Misc commands
 
 ```
-kubectl proxy
-kubectl exec -ti $POD_NAME curl localhost:8080
-kubectl exec -ti kube-demo-service-7bc677bf86-6zkrn curl localhost:9091
-curl http://localhost:8001/version
-curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME
+
+kubectl create -f [ResourceYamlFile]
 kubectl edit -oyaml deployment kube-demo-service
+kubectl delete [ResourceType] [ResourceName]
 eval $(minikube docker-env)
 
 ```
+
+---
+
+### Questions
+
+![whatsnext](https://github.com/priteshmehta/docker-intro/blob/master/img/whats_next.png?raw=true)
+
+
