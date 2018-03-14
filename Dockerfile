@@ -16,6 +16,7 @@ WORKDIR /web/html
 # Running commands
 RUN apt-get update
 RUN apt-get install vim -y
+RUN apt-get install curl -y
 
 # Set this as initial path when ssh logging.
 EXPOSE 80

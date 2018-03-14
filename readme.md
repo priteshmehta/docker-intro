@@ -302,14 +302,7 @@ docker kill
 
 ```
 docker build .
-docker build -t webservice2:1 .
-docker build -f [DOCKERFILE]
-
-```
-
-##### Push build to docker registry
-
-```
+docker build -t webservice2:1 -f [DOCKERFILE]
 docker push webservice2:1
 
 ```
@@ -337,19 +330,22 @@ docker push webservice2:1
 - Enables containers to find each other.
 
 
+---
+
 ### Kube Cluster
 
 ![Kubernetes cluster](https://github.com/priteshmehta/docker-intro/blob/master/img/kube_arch.png?raw=true)
+
+---
 
 
 ### Important Terminology
 
 - Pod
-- ReplicaSet (old ReplicationController)
+- ReplicaSet (old name ReplicationController)
 - Service
 - Deployment  
-- Labels
-- ingress (L7 Load balancer)
+- ingress (a.k.a L7 Load balancer)
 
 ---
 
@@ -371,18 +367,22 @@ minikube version
 minikube start
 minikube addons list
 
+```
+
+```
 kubectl version
 kubectl cluster-info
 kubectl get nodes
-
 ```
 
 ---
+
 
 ### Deploy App in Kube Cluster
 
 ![Deploy app](https://d33wubrfki0l68.cloudfront.net/152c845f25df8e69dd24dd7b0836a289747e258a/4a1d2/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg)
 
+```
 
 kubectl run kube-demo-service --image=nginx:latest --port=9091
 kubectl get pods
@@ -390,6 +390,8 @@ kubectl get rs
 kubectl get deployments
 kubectl exec -it [POD] bash
 kubectl logs [POD]
+
+```
 
 ---
 
@@ -399,13 +401,14 @@ kubectl logs [POD]
 
 ```
 
-kubectl expose deployment/kube-demo-service --type="NodePort" --port 9091
+kubectl expose deployment/kube-demo-service --type="NodePort" --port=80
 kubectl get services
 kubectl describe services/kube-demo-service
 kubectl describe deployment
 
 ````
 ---
+
 
 ### Expose to Public (Load Balancer)
 
