@@ -217,6 +217,8 @@ docker ps -a
 ```
 docker run -d -p 9090:80 --name webservice1 nginx
 docker run -d --name ubuntu ubuntu:16.04 tail -f /dev/null
+docker run -d -p 8000-9000:80 nginx
+docker run -d -P --name web training/webapp python app.py
 
 ```
 
@@ -252,6 +254,22 @@ docker logs --follow webservice1
 
 ---
 
+#### Docker Networking 
+
+
+```
+
+docker network create grid
+docker run -d -p 4444:4444 --net grid --name selenium-hub selenium/hub:3.11.0-antimony
+docker run -d --net grid -e HUB_HOST=selenium-hub -v /dev/shm:/dev/shm selenium/node-chrome:3.11.0-antimony
+docker run -d --net grid -e HUB_HOST=selenium-hub -v /dev/shm:/dev/shm selenium/node-firefox:3.11.0-antimony
+docker network rm grid
+
+```
+
+---
+
+
 #### Remove Containers & Images
 
 ```
@@ -265,6 +283,7 @@ docker volume rm  [VOLUMNE_NAME]
 ```
 
 ---
+
 
 #### Other Useful Commands
 
@@ -402,7 +421,7 @@ kubectl logs [POD]
 
 ```
 
-kubectl expose deployment/kube-demo-service --type="NodePort" --port=80
+kubectl expose deployment/kube-demo-service --type="NodePort" --port=9091  --target-port=80
 kubectl get services
 kubectl describe services/kube-demo-service
 
