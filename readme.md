@@ -175,15 +175,12 @@ A (hosted) service containing repositories of images which responds to the Regis
 ---
 
 
-### Goal: Deploy microservice using Docker
+### Let's deploy a simple microservice using Docker
 
 #### Pull the docker image from docker registry 
 
 ```
 docker pull nginx
-
-// Other options
-
 docker pull nginx:<Tag>
 docker pull myregistry.local:5000/testing/test-image
 docker pull ubuntu@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2
@@ -481,7 +478,7 @@ minikube delete
 
 ---
 
-### Misc commands
+### Other Useful Commands
 
 ```
 
