@@ -407,10 +407,11 @@ kubectl describe services/kube-demo-service
 kubectl describe deployment
 
 ````
+
 ---
 
 
-### Expose to Public (Load Balancer)
+### Expose to Public (load Balancer)
 
 
 ```
