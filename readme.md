@@ -442,6 +442,8 @@ kubectl get ing
 
 ### Scalling App
 
+![kube rolling update](https://github.com/priteshmehta/docker-intro/blob/master/img/kube_scalling_app.gif?raw=true)
+
 ```
 kubectl scale deployments/kube-demo-service --replicas=4
 kubectl get deployments
