@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: 2018-03-15T03:47:21Z
+  labels:
+    run: kube-demo-app
+  name: kube-demo-app
+  namespace: default
+  resourceVersion: "40913"
+  selfLink: /api/v1/namespaces/default/services/kube-demo-app
+  uid: 90ddcf03-2803-11e8-9329-080027008734
+spec:
+  clusterIP: 10.109.86.194
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 30037
+    port: 9093
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: kube-demo-app
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
+

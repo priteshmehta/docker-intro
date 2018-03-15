@@ -1,0 +1,58 @@
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  annotations:
+    deployment.kubernetes.io/desired-replicas: "1"
+    deployment.kubernetes.io/max-replicas: "2"
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: 2018-03-15T03:45:58Z
+  generation: 1
+  labels:
+    pod-template-hash: "2879863864"
+    run: kube-demo-app
+  name: kube-demo-app-6dcfdb7db8
+  namespace: default
+  ownerReferences:
+  - apiVersion: extensions/v1beta1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Deployment
+    name: kube-demo-app
+    uid: 5f9e6f73-2803-11e8-9329-080027008734
+  resourceVersion: "40853"
+  selfLink: /apis/extensions/v1beta1/namespaces/default/replicasets/kube-demo-app-6dcfdb7db8
+  uid: 5f9f25cc-2803-11e8-9329-080027008734
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      pod-template-hash: "2879863864"
+      run: kube-demo-app
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        pod-template-hash: "2879863864"
+        run: kube-demo-app
+    spec:
+      containers:
+      - image: nginx:latest
+        imagePullPolicy: Always
+        name: kube-demo-app
+        ports:
+        - containerPort: 9093
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  fullyLabeledReplicas: 1
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
