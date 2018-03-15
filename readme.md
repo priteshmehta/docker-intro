@@ -274,7 +274,7 @@ docker network rm grid
 docker stop/start/restart [CONTAINER]
 docker rm [CONTAINER]
 docker images purge
-docker images [IMAGE]
+docker rmi [IMAGE]
 docker volume rm  [VOLUMNE_NAME]
 
 ```
